@@ -43,6 +43,9 @@ output "host_region_1" {
   sensitive = true
 }
 
+output "crdb_namespace_region_1" {
+  value     = kubernetes_namespace_v1.ns_region_1.metadata[0].name
+}
 
 ### Region_2 Outputs
 
@@ -85,6 +88,10 @@ output "host_region_2" {
   sensitive = true
 }
 
+output "crdb_namespace_region_2" {
+  value     = kubernetes_namespace_v1.ns_region_2.metadata[0].name
+}
+
 ### Region_3 Outputs
 
 output "kubernetes_cluster_name_region_3" {
@@ -124,6 +131,10 @@ output "cluster_username_region_3" {
 output "host_region_3" {
   value     = azurerm_kubernetes_cluster.aks_region_3.kube_config[0].host
   sensitive = true
+}
+
+output "crdb_namespace_region_3" {
+  value     = kubernetes_namespace_v1.ns_region_3.metadata[0].name
 }
 
 # Output the External IP for use in the ConfigMap
