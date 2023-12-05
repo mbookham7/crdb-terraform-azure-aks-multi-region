@@ -1,4 +1,6 @@
-### Create Certificates and upload these as secrets to each cluster
+#######################################################################
+# Create Certificates and upload these as secrets to each cluster     #
+#######################################################################
 
 # Create a CA Certificate and Key
 
@@ -36,6 +38,8 @@ resource "tls_self_signed_cert" "ca_cert" {
   ]
 }
 
+# Output as a file for retention
+
 resource "local_file" "ca_cert" {
   content  = tls_self_signed_cert.ca_cert.cert_pem
   filename = "${path.module}/certs/ca.crt"
@@ -63,6 +67,8 @@ resource "local_file" "ca_cert_region_3" {
 resource "tls_private_key" "client_private_key" {
   algorithm = "RSA"
 }
+
+# Output as a file for retention
 
 resource "local_file" "client_key" {
   content  = tls_private_key.client_private_key.private_key_pem
@@ -116,6 +122,8 @@ resource "tls_private_key" "node_cert_region_1" {
   algorithm = "RSA"
 }
 
+# Output as a file for retention
+
 resource "local_file" "node_cert_region_1_key" {
   content  = tls_private_key.node_cert_region_1.private_key_pem
   filename = "${path.module}/${var.location_1}/certs/node.key"
@@ -162,6 +170,8 @@ resource "tls_locally_signed_cert" "node_cert_region_1" {
   ]
 }
 
+# Output as a file for retention
+
 resource "local_file" "node_cert_region_1_cert" {
   content  = tls_locally_signed_cert.node_cert_region_1.cert_pem
   filename = "${path.module}/${var.location_1}/certs/node.crt"
@@ -173,6 +183,8 @@ resource "local_file" "node_cert_region_1_cert" {
 resource "tls_private_key" "node_cert_region_2" {
   algorithm = "RSA"
 }
+
+# Output as a file for retention
 
 resource "local_file" "node_cert_region_2_key" {
    content  = tls_private_key.node_cert_region_2.private_key_pem
@@ -219,6 +231,8 @@ resource "tls_locally_signed_cert" "node_cert_region_2" {
   ]
 }
 
+# Output as a file for retention
+
 resource "local_file" "node_cert_region_2_cert" {
   content  = tls_locally_signed_cert.node_cert_region_2.cert_pem
   filename = "${path.module}/${var.location_2}/certs/node.crt"
@@ -230,6 +244,8 @@ resource "local_file" "node_cert_region_2_cert" {
 resource "tls_private_key" "node_cert_region_3" {
   algorithm = "RSA"
 }
+
+# Output as a file for retention
 
 resource "local_file" "node_cert_region_3_key" {
   content  = tls_private_key.node_cert_region_3.private_key_pem
@@ -275,6 +291,8 @@ resource "tls_locally_signed_cert" "node_cert_region_3" {
     "client_auth",
   ]
 }
+
+# Output as a file for retention
 
 resource "local_file" "node_cert_region_3_cert" {
   content  = tls_locally_signed_cert.node_cert_region_3.cert_pem

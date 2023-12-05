@@ -1,3 +1,7 @@
+#########################################
+# Deploy CockroachDB                    #
+#########################################
+
 ### Apply the StatefulSet manifests updated with the required regions.
 
 # Region 1

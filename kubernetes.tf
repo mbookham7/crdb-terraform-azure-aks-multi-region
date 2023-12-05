@@ -1,6 +1,10 @@
-### Pre-configure k8s for CockroachDB
+####################################
+# Kubernetes Pre-configuration     #
+####################################
 
 ### Expose kube-dns service externally for cross cluster DNS resolution
+
+# DNS Exposed via LoadBalancer in first region
 
 resource "kubernetes_service_v1" "kube-dns-lb-region_1" {
     provider = kubernetes.region_1
@@ -26,6 +30,8 @@ resource "kubernetes_service_v1" "kube-dns-lb-region_1" {
   }
 }
 
+# DNS Exposed via LoadBalancer in second region
+
 resource "kubernetes_service_v1" "kube-dns-lb-region_2" {
     provider = kubernetes.region_2
     metadata {
@@ -49,6 +55,8 @@ resource "kubernetes_service_v1" "kube-dns-lb-region_2" {
     type = "LoadBalancer"
   }
 }
+
+# DNS Exposed via LoadBalancer in third region
 
 resource "kubernetes_service_v1" "kube-dns-lb-region_3" {
     provider = kubernetes.region_3
@@ -76,6 +84,8 @@ resource "kubernetes_service_v1" "kube-dns-lb-region_3" {
 
 ### Create the namespaces based on the region names
 
+# Create namespace in first region
+
 resource "kubernetes_namespace_v1" "ns_region_1" {
   provider = kubernetes.region_1
   metadata {
@@ -91,6 +101,8 @@ resource "kubernetes_namespace_v1" "ns_region_1" {
   }
 }
 
+# Create namespace in first region
+
 resource "kubernetes_namespace_v1" "ns_region_2" {
   provider = kubernetes.region_2
   metadata {
@@ -105,6 +117,8 @@ resource "kubernetes_namespace_v1" "ns_region_2" {
     }
   }
 }
+
+# Create namespace in first region
 
 resource "kubernetes_namespace_v1" "ns_region_3" {
   provider = kubernetes.region_3
@@ -122,6 +136,8 @@ resource "kubernetes_namespace_v1" "ns_region_3" {
 }
 
 ### Update the CoreDNS configuration to forward DNS request to the correct cluster.
+
+# Replace the coredns-custom config map updated configuration to first region
 
 resource "kubernetes_config_map_v1_data" "coredns-custom_region_1" {
   provider = kubernetes.region_1
@@ -147,6 +163,8 @@ EOT
   }
 }
 
+# Replace the coredns-custom config map updated configuration to second region
+
 resource "kubernetes_config_map_v1_data" "coredns-custom_region_2" {
   provider = kubernetes.region_2
   data = {
@@ -171,6 +189,8 @@ EOT
   }
 }
 
+# Replace the coredns-custom config map updated configuration to third region
+
 resource "kubernetes_config_map_v1_data" "coredns-custom_region_3" {
   provider = kubernetes.region_3
   data = {
@@ -194,11 +214,3 @@ EOT
     namespace = "kube-system"
   }
 }
-
-### Create Certificates and upload these as secrets to each cluster
-
-### Apply the StatefulSet manifests updated with the required regions.
-
-### Initialize the cluster
-
-### Expose the Admin UI externally.
