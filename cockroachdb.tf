@@ -191,7 +191,6 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_1_cockroachdb" {
   depends_on = [kubernetes_namespace_v1.ns_region_1]
   metadata {
     annotations = {
-      SomeAnnotation = "foobar"
     }
 
     labels = {
@@ -280,7 +279,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_1_cockroachdb" {
           }
 
           name              = "cockroachdb"
-          image             = "cockroachdb/cockroach:v23.1.2"
+          image             = "cockroachdb/cockroach:${var.cockroachdb_version}"
           image_pull_policy = "IfNotPresent"
 
           port {
@@ -661,7 +660,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_2_cockroachdb" {
           }
 
           name              = "cockroachdb"
-          image             = "cockroachdb/cockroach:v23.1.2"
+          image             = "cockroachdb/cockroach:${var.cockroachdb_version}"
           image_pull_policy = "IfNotPresent"
 
           port {
@@ -1042,7 +1041,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_3_cockroachdb" {
           }
 
           name              = "cockroachdb"
-          image             = "cockroachdb/cockroach:v23.1.2"
+          image             = "cockroachdb/cockroach:${var.cockroachdb_version}"
           image_pull_policy = "IfNotPresent"
 
           port {

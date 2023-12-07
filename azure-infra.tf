@@ -17,7 +17,7 @@ resource "azurerm_virtual_network" "region_1" {
   name                = "${var.prefix}-${var.location_1}"
   location            = var.location_1
   resource_group_name = azurerm_resource_group.mb-crdb-multi-region.name
-  address_space       = ["10.1.0.0/16"]
+  address_space       = var.location_1_vnet_address_space
 }
 
 # Create subnet in first region
@@ -26,7 +26,7 @@ resource "azurerm_subnet" "internal-region_1" {
   name                 = "internal-region_1"
   virtual_network_name = azurerm_virtual_network.region_1.name
   resource_group_name  = azurerm_resource_group.mb-crdb-multi-region.name
-  address_prefixes     = ["10.1.0.0/22"]
+  address_prefixes     = var.location_1_aks_subnet
 }
 
 # Create VNET in second region
@@ -35,16 +35,16 @@ resource "azurerm_virtual_network" "region_2" {
   name                = "${var.prefix}-${var.location_2}"
   location            = var.location_2
   resource_group_name = azurerm_resource_group.mb-crdb-multi-region.name
-  address_space       = ["10.2.0.0/16"]
+  address_space       = var.location_2_vnet_address_space
 }
 
-# Create subnet in first region
+# Create subnet in second region
 
 resource "azurerm_subnet" "internal-region_2" {
   name                 = "internal-region_2"
   virtual_network_name = azurerm_virtual_network.region_2.name
   resource_group_name  = azurerm_resource_group.mb-crdb-multi-region.name
-  address_prefixes     = ["10.2.0.0/22"]
+  address_prefixes     = var.location_2_aks_subnet
 }
 
 # Create VNET in thrid region
@@ -53,7 +53,7 @@ resource "azurerm_virtual_network" "region_3" {
   name                = "${var.prefix}-${var.location_3}"
   location            = var.location_3
   resource_group_name = azurerm_resource_group.mb-crdb-multi-region.name
-  address_space       = ["10.3.0.0/16"]
+  address_space       = var.location_3_vnet_address_space
 }
 
 # Create subnet in third region
@@ -62,7 +62,7 @@ resource "azurerm_subnet" "internal-region_3" {
   name                 = "internal-region_3"
   virtual_network_name = azurerm_virtual_network.region_3.name
   resource_group_name  = azurerm_resource_group.mb-crdb-multi-region.name
-  address_prefixes     = ["10.3.0.0/22"]
+  address_prefixes     = var.location_3_aks_subnet
 }
 
 ### Create VNET Peers between each of the three VNETs
@@ -145,9 +145,9 @@ resource "azurerm_kubernetes_cluster" "aks_region_1" {
   dns_prefix          = "${var.prefix}-k8s"
 
   default_node_pool {
-    name           = "system"
+    name           = var.aks_pool_name
     node_count     = 3
-    vm_size        = "Standard_D8s_v3"
+    vm_size        = var.aks_vm_size
     vnet_subnet_id = azurerm_subnet.internal-region_1.id
   }
 
@@ -169,9 +169,9 @@ resource "azurerm_kubernetes_cluster" "aks_region_2" {
   dns_prefix          = "${var.prefix}-k8s"
 
   default_node_pool {
-    name           = "system"
+    name           = var.aks_pool_name
     node_count     = 3
-    vm_size        = "Standard_D8s_v3"
+    vm_size        = var.aks_vm_size
     vnet_subnet_id = azurerm_subnet.internal-region_2.id
   }
 
@@ -193,9 +193,9 @@ resource "azurerm_kubernetes_cluster" "aks_region_3" {
   dns_prefix          = "${var.prefix}-k8s"
 
   default_node_pool {
-    name           = "system"
+    name           = var.aks_pool_name
     node_count     = 3
-    vm_size        = "Standard_D8s_v3"
+    vm_size        = var.aks_vm_size
     vnet_subnet_id = azurerm_subnet.internal-region_3.id
   }
 

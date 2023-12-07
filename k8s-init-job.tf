@@ -21,7 +21,7 @@ resource "kubernetes_job_v1" "cockroachdb_init_job" {
         spec {
           container {
             command = ["/cockroach/cockroach", "init", "--certs-dir=/cockroach-certs", "--host=cockroachdb-0.cockroachdb.${var.location_1}"]
-            image = "cockroachdb/cockroach:v23.1.12"
+            image = "cockroachdb/cockroach:${var.cockroachdb_version}"
             image_pull_policy  = "IfNotPresent"
             name = "cockroachdb-client"
             volume_mount {
