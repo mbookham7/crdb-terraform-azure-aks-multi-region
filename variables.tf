@@ -54,6 +54,11 @@ variable "aks_vm_size" {
   default = "Standard_D8s_v3"
 }
 
+variable "aks_node_count" {
+  description = "The Azure Region in which all resources in this example should be provisioned"
+  default = 3
+}
+
 variable "cockroachdb_version" {
   description = "The Azure Region in which all resources in this example should be provisioned"
   default = "v23.1.2"
