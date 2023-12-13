@@ -101,7 +101,7 @@ resource "kubernetes_namespace_v1" "ns_region_1" {
   }
 }
 
-# Create namespace in first region
+# Create namespace in second region
 
 resource "kubernetes_namespace_v1" "ns_region_2" {
   provider = kubernetes.region_2
@@ -118,7 +118,7 @@ resource "kubernetes_namespace_v1" "ns_region_2" {
   }
 }
 
-# Create namespace in first region
+# Create namespace in third region
 
 resource "kubernetes_namespace_v1" "ns_region_3" {
   provider = kubernetes.region_3
