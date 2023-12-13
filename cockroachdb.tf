@@ -305,13 +305,13 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_1_cockroachdb" {
 
           resources {
             limits = {
-              cpu    = "4"
-              memory = "8Gi"
+              cpu    = var.cockroachdb_pod_cpu
+              memory = var.cockroachdb_pod_memory
             }
 
             requests = {
-              cpu    = "4"
-              memory = "8Gi"
+              cpu    = var.cockroachdb_pod_cpu
+              memory = var.cockroachdb_pod_memory
             }
           }
         
@@ -376,7 +376,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_1_cockroachdb" {
 
         resources {
           requests = {
-            storage = "50Gi"
+            storage = var.cockroachdb_storage
           }
         }
       }

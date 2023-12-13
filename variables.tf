@@ -63,3 +63,18 @@ variable "cockroachdb_version" {
   description = "The Azure Region in which all resources in this example should be provisioned"
   default = "v23.1.2"
 }
+
+variable "cockroachdb_pod_cpu" {
+  description = "The Azure Region in which all resources in this example should be provisioned"
+  default = "4"
+}
+
+variable "cockroachdb_pod_memory" {
+  description = "The Azure Region in which all resources in this example should be provisioned"
+  default = "8Gi"
+}
+
+variable "cockroachdb_storage" {
+  description = "The Azure Region in which all resources in this example should be provisioned"
+  default = "50Gi"
+}
