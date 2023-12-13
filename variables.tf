@@ -78,3 +78,8 @@ variable "cockroachdb_storage" {
   description = "The Azure Region in which all resources in this example should be provisioned"
   default = "50Gi"
 }
+
+variable "statfulset_replicas" {
+  description = "The Azure Region in which all resources in this example should be provisioned"
+  default = 3
+}

@@ -202,7 +202,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_1_cockroachdb" {
 
   spec {
     pod_management_policy  = "Parallel"
-    replicas               = 3
+    replicas               = var.statfulset_replicas
 
     selector {
       match_labels = {
@@ -583,7 +583,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_2_cockroachdb" {
 
   spec {
     pod_management_policy  = "Parallel"
-    replicas               = 3
+    replicas               = var.statfulset_replicas
 
     selector {
       match_labels = {
@@ -686,13 +686,13 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_2_cockroachdb" {
 
           resources {
             limits = {
-              cpu    = "4"
-              memory = "8Gi"
+              cpu    = var.cockroachdb_pod_cpu
+              memory = var.cockroachdb_pod_memory
             }
 
             requests = {
-              cpu    = "4"
-              memory = "8Gi"
+              cpu    = var.cockroachdb_pod_cpu
+              memory = var.cockroachdb_pod_memory
             }
           }
         
@@ -757,7 +757,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_2_cockroachdb" {
 
         resources {
           requests = {
-            storage = "50Gi"
+            storage = var.cockroachdb_storage
           }
         }
       }
@@ -964,7 +964,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_3_cockroachdb" {
 
   spec {
     pod_management_policy  = "Parallel"
-    replicas               = 3
+    replicas               = var.statfulset_replicas
 
     selector {
       match_labels = {
@@ -1067,13 +1067,13 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_3_cockroachdb" {
 
           resources {
             limits = {
-              cpu    = "4"
-              memory = "8Gi"
+              cpu    = var.cockroachdb_pod_cpu
+              memory = var.cockroachdb_pod_memory
             }
 
             requests = {
-              cpu    = "4"
-              memory = "8Gi"
+              cpu    = var.cockroachdb_pod_cpu
+              memory = var.cockroachdb_pod_memory
             }
           }
         
@@ -1138,7 +1138,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_3_cockroachdb" {
 
         resources {
           requests = {
-            storage = "50Gi"
+            storage = var.cockroachdb_storage
           }
         }
       }
