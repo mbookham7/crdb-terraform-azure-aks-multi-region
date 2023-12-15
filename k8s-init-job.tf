@@ -1,5 +1,5 @@
 resource "time_sleep" "wait_120_seconds" {
-  depends_on = [kubernetes_service.service_cockroachdb_public_region_1]
+  depends_on = [kubernetes_service.service_cockroachdb_public_region_1, kubernetes_namespace_v1.ns_region_1 ]
   create_duration = "120s"
 }
 
