@@ -82,59 +82,6 @@ resource "kubernetes_service_v1" "kube-dns-lb-region_3" {
   }
 }
 
-### Create the namespaces based on the region names
-
-# Create namespace in first region
-
-resource "kubernetes_namespace_v1" "ns_region_1" {
-  provider = kubernetes.region_1
-  metadata {
-    name = var.location_1
-
-    annotations = {
-      name = "CockroachDB Namespace"
-    }
-
-    labels = {
-      app = "cockroachdb"
-    }
-  }
-}
-
-# Create namespace in second region
-
-resource "kubernetes_namespace_v1" "ns_region_2" {
-  provider = kubernetes.region_2
-  metadata {
-    name = var.location_2
-
-    annotations = {
-      name = "CockroachDB Namespace"
-    }
-
-    labels = {
-      app = "cockroachdb"
-    }
-  }
-}
-
-# Create namespace in third region
-
-resource "kubernetes_namespace_v1" "ns_region_3" {
-  provider = kubernetes.region_3
-  metadata {
-    name = var.location_3
-
-    annotations = {
-      name = "CockroachDB Namespace"
-    }
-
-    labels = {
-      app = "cockroachdb"
-    }
-  }
-}
-
 ### Update the CoreDNS configuration to forward DNS request to the correct cluster.
 
 # Replace the coredns-custom config map updated configuration to first region

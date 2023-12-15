@@ -2,6 +2,59 @@
 # Deploy CockroachDB                    #
 #########################################
 
+### Create the namespaces based on the region names
+
+# Create namespace in first region
+
+resource "kubernetes_namespace_v1" "ns_region_1" {
+  provider = kubernetes.region_1
+  metadata {
+    name = var.location_1
+
+    annotations = {
+      name = "CockroachDB Namespace"
+    }
+
+    labels = {
+      app = "cockroachdb"
+    }
+  }
+}
+
+# Create namespace in second region
+
+resource "kubernetes_namespace_v1" "ns_region_2" {
+  provider = kubernetes.region_2
+  metadata {
+    name = var.location_2
+
+    annotations = {
+      name = "CockroachDB Namespace"
+    }
+
+    labels = {
+      app = "cockroachdb"
+    }
+  }
+}
+
+# Create namespace in third region
+
+resource "kubernetes_namespace_v1" "ns_region_3" {
+  provider = kubernetes.region_3
+  metadata {
+    name = var.location_3
+
+    annotations = {
+      name = "CockroachDB Namespace"
+    }
+
+    labels = {
+      app = "cockroachdb"
+    }
+  }
+}
+
 ### Apply the StatefulSet manifests updated with the required regions.
 
 # Region 1
@@ -188,7 +241,7 @@ resource "kubernetes_pod_disruption_budget_v1" "poddisruptionbudget_cockroachdb_
 
 resource "kubernetes_stateful_set_v1" "statefulset_region_1_cockroachdb" {
   provider = kubernetes.region_1
-  depends_on = [kubernetes_namespace_v1.ns_region_1]
+  depends_on = [kubernetes_namespace_v1.ns_region_1, kubernetes_config_map_v1_data.coredns-custom_region_1]
   metadata {
     annotations = {
     }
@@ -567,7 +620,7 @@ resource "kubernetes_pod_disruption_budget_v1" "poddisruptionbudget_cockroachdb_
 }
 
 resource "kubernetes_stateful_set_v1" "statefulset_region_2_cockroachdb" {
-  depends_on = [kubernetes_namespace_v1.ns_region_2]
+  depends_on = [kubernetes_namespace_v1.ns_region_2, kubernetes_stateful_set_v1.statefulset_region_1_cockroachdb]
   provider = kubernetes.region_2
   metadata {
     annotations = {
@@ -949,7 +1002,7 @@ resource "kubernetes_pod_disruption_budget_v1" "poddisruptionbudget_cockroachdb_
 
 resource "kubernetes_stateful_set_v1" "statefulset_region_3_cockroachdb" {
   provider = kubernetes.region_3
-  depends_on = [kubernetes_namespace_v1.ns_region_3]
+  depends_on = [kubernetes_namespace_v1.ns_region_3, kubernetes_stateful_set_v1.statefulset_region_1_cockroachdb]
   metadata {
     annotations = {
       SomeAnnotation = "foobar"
