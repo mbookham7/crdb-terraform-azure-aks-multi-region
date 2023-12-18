@@ -73,6 +73,8 @@ resource "azurerm_virtual_network_peering" "peer1to2" {
   resource_group_name       = azurerm_resource_group.mb-crdb-multi-region.name
   virtual_network_name      = azurerm_virtual_network.region_1.name
   remote_virtual_network_id = azurerm_virtual_network.region_2.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
 }
 
 resource "azurerm_virtual_network_peering" "peer2to1" {
@@ -80,6 +82,8 @@ resource "azurerm_virtual_network_peering" "peer2to1" {
   resource_group_name       = azurerm_resource_group.mb-crdb-multi-region.name
   virtual_network_name      = azurerm_virtual_network.region_2.name
   remote_virtual_network_id = azurerm_virtual_network.region_1.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
 }
 
 ### Region 2 and Region 3 Peer
@@ -88,6 +92,8 @@ resource "azurerm_virtual_network_peering" "peer2to3" {
   resource_group_name       = azurerm_resource_group.mb-crdb-multi-region.name
   virtual_network_name      = azurerm_virtual_network.region_2.name
   remote_virtual_network_id = azurerm_virtual_network.region_3.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
 }
 
 resource "azurerm_virtual_network_peering" "peer3to2" {
@@ -95,6 +101,8 @@ resource "azurerm_virtual_network_peering" "peer3to2" {
   resource_group_name       = azurerm_resource_group.mb-crdb-multi-region.name
   virtual_network_name      = azurerm_virtual_network.region_3.name
   remote_virtual_network_id = azurerm_virtual_network.region_2.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
 }
 
 ### Region 1 and Region 3 Peer
@@ -103,6 +111,8 @@ resource "azurerm_virtual_network_peering" "peer1to3" {
   resource_group_name       = azurerm_resource_group.mb-crdb-multi-region.name
   virtual_network_name      = azurerm_virtual_network.region_1.name
   remote_virtual_network_id = azurerm_virtual_network.region_3.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
 }
 
 resource "azurerm_virtual_network_peering" "peer3to1" {
@@ -110,6 +120,8 @@ resource "azurerm_virtual_network_peering" "peer3to1" {
   resource_group_name       = azurerm_resource_group.mb-crdb-multi-region.name
   virtual_network_name      = azurerm_virtual_network.region_3.name
   remote_virtual_network_id = azurerm_virtual_network.region_1.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic      = true
 }
 
 ### Identity
