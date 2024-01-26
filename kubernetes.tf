@@ -8,6 +8,7 @@
 
 resource "kubernetes_service_v1" "kube-dns-lb-region_1" {
     provider = kubernetes.region_1
+    depends_on = [azurerm_virtual_network_peering.peer1to2, azurerm_virtual_network_peering.peer2to1]
     metadata {
       name      = "kube-dns-lb"
       namespace = "kube-system"
@@ -34,6 +35,7 @@ resource "kubernetes_service_v1" "kube-dns-lb-region_1" {
 
 resource "kubernetes_service_v1" "kube-dns-lb-region_2" {
     provider = kubernetes.region_2
+    depends_on = [azurerm_virtual_network_peering.peer2to3, azurerm_virtual_network_peering.peer3to2]
     metadata {
       name      = "kube-dns-lb"
       namespace = "kube-system"
@@ -60,6 +62,7 @@ resource "kubernetes_service_v1" "kube-dns-lb-region_2" {
 
 resource "kubernetes_service_v1" "kube-dns-lb-region_3" {
     provider = kubernetes.region_3
+    depends_on = [azurerm_virtual_network_peering.peer1to3, azurerm_virtual_network_peering.peer3to1]
     metadata {
       name      = "kube-dns-lb"
       namespace = "kube-system"
@@ -88,6 +91,7 @@ resource "kubernetes_service_v1" "kube-dns-lb-region_3" {
 
 resource "kubernetes_config_map_v1_data" "coredns-custom_region_1" {
   provider = kubernetes.region_1
+  depends_on = [kubernetes_service_v1.kube-dns-lb-region_1]
   data = {
     "cockroach.server" = <<EOT
     ${var.location_2}.svc.cluster.local:53 {
@@ -114,6 +118,7 @@ EOT
 
 resource "kubernetes_config_map_v1_data" "coredns-custom_region_2" {
   provider = kubernetes.region_2
+  depends_on = [kubernetes_service_v1.kube-dns-lb-region_2]
   data = {
     "cockroach.server" = <<EOT
     ${var.location_1}.svc.cluster.local:53 {
@@ -140,6 +145,7 @@ EOT
 
 resource "kubernetes_config_map_v1_data" "coredns-custom_region_3" {
   provider = kubernetes.region_3
+  depends_on = [kubernetes_service_v1.kube-dns-lb-region_3]
   data = {
     "cockroach.server" = <<EOT
     ${var.location_2}.svc.cluster.local:53 {

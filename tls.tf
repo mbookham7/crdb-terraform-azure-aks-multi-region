@@ -47,18 +47,18 @@ resource "local_file" "ca_cert" {
 
 resource "local_file" "ca_cert_region_1" {
   content  = tls_self_signed_cert.ca_cert.cert_pem
-  filename = "${path.module}/${var.location_1}/certs/ca.crt"
+  filename = "${path.module}/certs/${var.location_1}/ca.crt"
 }
 
 
 resource "local_file" "ca_cert_region_2" {
   content  = tls_self_signed_cert.ca_cert.cert_pem
-  filename = "${path.module}/${var.location_2}/certs/ca.crt"
+  filename = "${path.module}/certs/${var.location_2}/ca.crt"
 }
 
 resource "local_file" "ca_cert_region_3" {
   content  = tls_self_signed_cert.ca_cert.cert_pem
-  filename = "${path.module}/${var.location_3}/certs/ca.crt"
+  filename = "${path.module}/certs/${var.location_3}/ca.crt"
 }
 
 # Create a Client certificate and ket for the first user
@@ -126,7 +126,7 @@ resource "tls_private_key" "node_cert_region_1" {
 
 resource "local_file" "node_cert_region_1_key" {
   content  = tls_private_key.node_cert_region_1.private_key_pem
-  filename = "${path.module}/${var.location_1}/certs/node.key"
+  filename = "${path.module}/certs/${var.location_1}/node.key"
 }
 
 
@@ -174,7 +174,7 @@ resource "tls_locally_signed_cert" "node_cert_region_1" {
 
 resource "local_file" "node_cert_region_1_cert" {
   content  = tls_locally_signed_cert.node_cert_region_1.cert_pem
-  filename = "${path.module}/${var.location_1}/certs/node.crt"
+  filename = "${path.module}/certs/${var.location_1}/node.crt"
 }
 
 # Region_2
@@ -188,7 +188,7 @@ resource "tls_private_key" "node_cert_region_2" {
 
 resource "local_file" "node_cert_region_2_key" {
    content  = tls_private_key.node_cert_region_2.private_key_pem
-  filename = "${path.module}/${var.location_2}/certs/node.key"
+  filename = "${path.module}/certs/${var.location_2}/node.key"
 }
 
 # Create CSR for for server certificate 
@@ -235,7 +235,7 @@ resource "tls_locally_signed_cert" "node_cert_region_2" {
 
 resource "local_file" "node_cert_region_2_cert" {
   content  = tls_locally_signed_cert.node_cert_region_2.cert_pem
-  filename = "${path.module}/${var.location_2}/certs/node.crt"
+  filename = "${path.module}/certs/${var.location_2}/node.crt"
 }
 
 # Region_3
@@ -249,7 +249,7 @@ resource "tls_private_key" "node_cert_region_3" {
 
 resource "local_file" "node_cert_region_3_key" {
   content  = tls_private_key.node_cert_region_3.private_key_pem
-  filename = "${path.module}/${var.location_3}/certs/node.key"
+  filename = "${path.module}/certs/${var.location_3}/node.key"
 }
 
 # Create CSR for for server certificate 
@@ -296,7 +296,7 @@ resource "tls_locally_signed_cert" "node_cert_region_3" {
 
 resource "local_file" "node_cert_region_3_cert" {
   content  = tls_locally_signed_cert.node_cert_region_3.cert_pem
-  filename = "${path.module}/${var.location_3}/certs/node.crt"
+  filename = "${path.module}/certs/${var.location_3}/node.crt"
 }
 
 # Upload Certificates as secrets to kubernetes

@@ -151,6 +151,7 @@ resource "azurerm_role_assignment" "network_contributor_region_3" {
 
 ### Region 1 AKS Cluster Creation
 resource "azurerm_kubernetes_cluster" "aks_region_1" {
+  depends_on = [azurerm_virtual_network_peering.peer1to2, azurerm_virtual_network_peering.peer2to1]
   name                = "${var.prefix}-k8s-${var.location_1}"
   location            = var.location_1
   resource_group_name = azurerm_resource_group.mb-crdb-multi-region.name
@@ -175,6 +176,7 @@ resource "azurerm_kubernetes_cluster" "aks_region_1" {
 
 ### Region 2 AKS Cluster Creation
 resource "azurerm_kubernetes_cluster" "aks_region_2" {
+  depends_on = [azurerm_virtual_network_peering.peer2to3, azurerm_virtual_network_peering.peer3to2]
   name                = "${var.prefix}-k8s-${var.location_2}"
   location            = var.location_2
   resource_group_name = azurerm_resource_group.mb-crdb-multi-region.name
@@ -199,6 +201,7 @@ resource "azurerm_kubernetes_cluster" "aks_region_2" {
 
 ### Region 3 AKS Cluster Creation
 resource "azurerm_kubernetes_cluster" "aks_region_3" {
+  depends_on = [azurerm_virtual_network_peering.peer1to3, azurerm_virtual_network_peering.peer3to1]
   name                = "${var.prefix}-k8s-${var.location_3}"
   location            = var.location_3
   resource_group_name = azurerm_resource_group.mb-crdb-multi-region.name

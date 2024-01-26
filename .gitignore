@@ -31,6 +31,3 @@ override.tf.json
 
 /certs 
 /my-safe-directory
-/uksouth
-/ukwest
-/northeurope

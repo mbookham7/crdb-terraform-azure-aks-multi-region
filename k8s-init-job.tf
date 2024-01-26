@@ -1,10 +1,10 @@
-resource "time_sleep" "wait_120_seconds" {
+resource "time_sleep" "wait_45_seconds" {
   depends_on = [kubernetes_service.service_cockroachdb_public_region_1, kubernetes_namespace_v1.ns_region_1 ]
-  create_duration = "120s"
+  create_duration = "45s"
 }
 
 resource "kubernetes_job_v1" "cockroachdb_init_job" {
-  depends_on = [time_sleep.wait_120_seconds]
+  depends_on = [time_sleep.wait_45_seconds]
   provider = kubernetes.region_1
     metadata {
       name = "cockroachdb-client-secure"
