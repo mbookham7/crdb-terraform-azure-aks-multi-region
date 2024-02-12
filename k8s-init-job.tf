@@ -41,4 +41,5 @@ resource "kubernetes_job_v1" "cockroachdb_init_job" {
         }
       }
     }
+    wait_for_completion = false
 }
