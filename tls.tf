@@ -321,6 +321,7 @@ resource "kubernetes_secret_v1" "cockroachdb_client_root_region_1" {
 # Region 2
 resource "kubernetes_secret_v1" "cockroachdb_client_root_region_2" {
   provider = kubernetes.region_2
+  depends_on = [kubernetes_namespace_v1.ns_region_2]
   metadata {
     name = "cockroachdb.client.root"
     namespace = var.location_2
@@ -336,6 +337,7 @@ resource "kubernetes_secret_v1" "cockroachdb_client_root_region_2" {
 # Region 3
 resource "kubernetes_secret_v1" "cockroachdb_client_root_region_3" {
   provider = kubernetes.region_3
+  depends_on = [kubernetes_namespace_v1.ns_region_3]
   metadata {
     name = "cockroachdb.client.root"
     namespace = var.location_3
@@ -353,6 +355,7 @@ resource "kubernetes_secret_v1" "cockroachdb_client_root_region_3" {
 # Region 1
 resource "kubernetes_secret_v1" "cockroachdb_node_region_1" {
   provider = kubernetes.region_1
+  depends_on = [kubernetes_namespace_v1.ns_region_1]
   metadata {
     name = "cockroachdb.node"
     namespace = var.location_1
@@ -368,6 +371,7 @@ resource "kubernetes_secret_v1" "cockroachdb_node_region_1" {
 # Region 2
 resource "kubernetes_secret_v1" "cockroachdb_node_region_2" {
   provider = kubernetes.region_2
+  depends_on = [kubernetes_namespace_v1.ns_region_2]
   metadata {
     name = "cockroachdb.node"
     namespace = var.location_2
@@ -384,6 +388,7 @@ resource "kubernetes_secret_v1" "cockroachdb_node_region_2" {
 # Region 3
 resource "kubernetes_secret_v1" "cockroachdb_node_region_3" {
   provider = kubernetes.region_3
+  depends_on = [kubernetes_namespace_v1.ns_region_2]
   metadata {
     name = "cockroachdb.node"
     namespace = var.location_3

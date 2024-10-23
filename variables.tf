@@ -61,7 +61,7 @@ variable "aks_node_count" {
 
 variable "cockroachdb_version" {
   description = "The Azure Region in which all resources in this example should be provisioned"
-  default = "v23.1.2"
+  default = "v23.2.3"
 }
 
 variable "cockroachdb_pod_cpu" {
