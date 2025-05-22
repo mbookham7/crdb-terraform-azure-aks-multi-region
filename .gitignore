@@ -31,3 +31,4 @@ override.tf.json
 
 /certs 
 /my-safe-directory
+azure-credential.txt

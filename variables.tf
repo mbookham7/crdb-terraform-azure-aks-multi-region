@@ -14,6 +14,14 @@ variable "location_3" {
   description = "The Azure Region in which all resources in this example should be provisioned"
 }
 
+variable "azure_subscription_id" {
+  description = "The Azure Subscription ID in which all resources in this example should be provisioned"
+}
+
+variable "azure_tenant_id" {
+  description = "The Azure Tenant ID in which all resources in this example should be provisioned"
+}
+
 variable "location_1_vnet_address_space" {
   description = "The Azure VNET address space for first location"
   default = ["10.1.0.0/16"]
@@ -83,3 +91,4 @@ variable "statfulset_replicas" {
   description = "The Azure Region in which all resources in this example should be provisioned"
   default = 3
 }
+
