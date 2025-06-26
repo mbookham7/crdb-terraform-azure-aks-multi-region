@@ -415,7 +415,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_1_cockroachdb" {
       type = "RollingUpdate"
 
       rolling_update {
-        partition = 1
+        partition = 0
       }
     }
 
@@ -796,7 +796,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_2_cockroachdb" {
       type = "RollingUpdate"
 
       rolling_update {
-        partition = 1
+        partition = 0
       }
     }
 
@@ -1177,7 +1177,7 @@ resource "kubernetes_stateful_set_v1" "statefulset_region_3_cockroachdb" {
       type = "RollingUpdate"
 
       rolling_update {
-        partition = 1
+        partition = 0
       }
     }
 
